@@ -1,0 +1,84 @@
+[{:db/id -1
+  :adr/id "2608150200"
+  :adr/title "The pure-helper suite is the self-contained check; blocked paths are documented, not silent"
+  :adr/status "accepted"
+  :adr/date "2026-08-15"
+  :adr/repo "cloud-itonami/org-unspsc"
+  :adr/body
+  "## Context
+
+This repository was carved out of `etzhayyim/root` (`migration.edn` records the
+source tree and revision). Several references did not survive the move, and
+because nothing here described the expected state, each one presents to a new
+reader as 'my checkout is broken'.
+
+Measured on 2026-08-15, node v26.3.0 / npm 11.16.0, from a fresh clone:
+
+  npm install (in kotoba/)     FAILS -- EALLOWSCRIPTS. `@etzhayyim/sdk` is a git
+                               dependency publishing dist/, so npm must run its
+                               prepare script; npm 11.16 refuses to in a
+                               project-scoped install. `--ignore-scripts` does not
+                               help: npm re-enters with `--force` for git-dep
+                               preparation and trips the same check. It leaves an
+                               EMPTY node_modules/ behind, which `.gitignore`
+                               (only `training/adapters/*.safetensors`) would let
+                               someone commit.
+  src/seed.test.ts             CANNOT LOAD -- 'Cannot find package
+                               @etzhayyim/sdk imported from src/seed.ts'. Its 12
+                               declared cases never run.
+  npm run typecheck/seed/query/verify   blocked by the same install failure.
+  appview/worker               `@etzhayyim/kotodama-host-sdk` is `workspace:*`
+                               with no workspace root in this repository.
+  unispsc.etzhayyim.com        NXDOMAIN (the Worker's declared custom domain)
+  lg-open-unispsc.etzhayyim.com  NXDOMAIN (its upstream)
+  pds.etzhayyim.com            resolves, answers HTTP 530 (seeder write target)
+  kotoba/CHARTER-RIDER.md      dangling symlink -> ../../../../CHARTER-RIDER.md
+  appview/worker/CHARTER-RIDER.md  dangling symlink -> ../../../CHARTER-RIDER.md
+
+The last one has teeth: both NOTICE files state the licence as Apache-2.0 plus
+the etzhayyim Charter Compliance Rider v3.1 'see CHARTER-RIDER.md', and that text
+cannot be read from this repository.
+
+One thing does work, and it needs no install at all. Node 26 strips TypeScript
+types natively and `npx` fetches a runner on demand, so the pure-helper suite runs
+from a fresh clone in under a second.
+
+## Decision
+
+**`kotoba/src/types.test.ts` is this repository's self-contained check.** It is
+the command a reader runs first and the one CI should run:
+
+    cd kotoba && npx --yes vitest@4 run src/types.test.ts   ->  56 passed
+
+It covers the real contract: the 2-digit code grammar, the slug grammar, and every
+boundary of the segment-range -> CPC-section mapping.
+
+**Every blocked path above is written down with its exact error rather than left
+to be rediscovered.** `docs/operator-quickstart.md` quotes the observed output of
+both the working and the failing commands, and README.md carries the same table.
+The failures are not repaired in this change -- repairing them is not a
+documentation task and two of them are product decisions -- but they stop being
+silent.
+
+`npx --yes vitest@4 run` without a file argument is deliberately NOT the
+recommended command: it reports `1 failed | 1 passed` for reasons that have
+nothing to do with the code under test.
+
+## Consequences
+
+- The repository has a green check that a reader can reproduce in one command with
+  zero setup, which it did not have before.
+- That check is narrow by construction. It exercises `types.ts` only. It does not
+  cover the CSV parser, the converter, the seeder, the reader, or the Worker --
+  all of which sit behind the install wall. The quickstart says so; nobody should
+  read '56 passed' as coverage of this repository.
+- Whoever unblocks this has a dependency-ordered list in the quickstart. Two items
+  are self-contained and worth doing regardless: re-point the SDK dependency to
+  `kotoba-lang/sdk` (the rename is a GitHub redirect today, and the pinned commit
+  12314a0c still exists there), and move the SDK client out of module scope in
+  `seed.ts` so its pure exports load without it. The second alone turns the whole
+  suite green.
+- A CPC-coverage check over the real table is documented as a one-liner (`node
+  --input-type=module`, no install) and currently reports `segments=50
+  without-cpc=3 codes=32,49,54`. It is documented rather than asserted as a test,
+  because per ADR-2608150100 it is not yet known whether 3-of-50 is a defect."}]
