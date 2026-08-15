@@ -1,0 +1,83 @@
+[{:db/id -1
+  :adr/id "2608150100"
+  :adr/title "org-unspsc is the source-catalog plane, not the fleet"
+  :adr/status "accepted"
+  :adr/date "2026-08-15"
+  :adr/repo "cloud-itonami/org-unspsc"
+  :adr/body
+  "## Context
+
+Four repositories in this workspace carry `unspsc` in the name, and until now
+none of them said, from this side, which one owns what:
+
+  cloud-itonami/org-unspsc            (this repository)
+  cloud-itonami/unspsc                18,342 executable commodity actors
+  kotoba-lang/unspsc                  segment -> technology-capability registry
+  cloud-itonami/cloud-itonami-unspsc-NN   one deployable actor per segment
+
+The boundary was already asserted from one side. `cloud-itonami/unspsc`'s README
+opens: 'The source catalog boundary is `cloud-itonami/org-unspsc`; this repository
+owns the executable commodity-organism fleet.' Nothing in this repository
+acknowledged that, and this repository had no README.md at all -- only a
+`README.edn` of three keys naming a repository (`com-etzhayyim-app-open-unspsc`)
+that no longer exists at that address.
+
+The workspace naming rule (ADR-2608040100) puts `org-unspsc` on the **origin**
+plane: the name is the registrable domain of the authority, `unspsc.org`,
+label-reversed. The origin plane means the subject is someone else's
+specification. That is a claim about what the repository holds, and it was not
+being honoured -- `CLAUDE.md` describes a full four-level product model with
+per-commodity DIDs, MCP tools and business logic, which is fleet work.
+
+## Decision
+
+**This repository owns the UNSPSC codeset as source material and its publication
+surface. It does not own execution.**
+
+Concretely, in scope: the segment table, the record shape it is published under
+(`com.etzhayyim.apps.openUnispsc.segmentDef`), the validation of code and slug
+grammar, the concordance to CPC, and the publisher/reader code that puts the
+taxonomy on a substrate.
+
+Out of scope, and living in the named neighbour instead: per-code actors and
+organism runtime (`cloud-itonami/unspsc`), the mapping from a segment to the
+capabilities an operator business needs (`kotoba-lang/unspsc`), and per-segment
+deployables (`cloud-itonami-unspsc-NN`).
+
+`kotoba-lang/unspsc` shares this repository's grain -- both work at the 2-digit
+segment level -- so grain alone does not separate them. The separation is
+subject: this repository carries what a segment *is*, that one carries what
+running a segment business *requires*.
+
+`CLAUDE.md` is retained as the aimed-at model rather than a description of
+contents, and README.md now says so. `segments.csv` is the whole corpus; the
+families, classes and ~70,000 commodities that CLAUDE.md describes are not here.
+
+## Consequences
+
+- A reader arriving at any of the four repositories can now find the boundary
+  stated from both ends.
+- Identity drift is kept, not renamed. `README.edn`, `CLAUDE.md` and the lexicon
+  NSIDs still name `etzhayyim` identities in three spellings, and two of them
+  (`unspsc` / `unispsc`) are not interchangeable. This follows the policy
+  `cloud-itonami/unspsc` already states -- historical `com.etzhayyim.*`
+  namespaces remain compatibility identities -- and ADR-2608040100's rule that a
+  repository is not renamed when its origin domain moves. README.md documents the
+  drift so it is discoverable rather than surprising.
+- The provenance of `segments.csv` becomes this repository's problem and no one
+  else's. There is no record of where the 50 rows came from, and `types.ts` dates
+  them to a 'UNSPSC v25 baseline' without a citation. The sibling
+  `kotoba-lang/unspsc` is explicit that its own list is from general knowledge
+  rather than an official codeset file; nothing shows this table has a better
+  pedigree. Until that is settled the table is unverified, and the three segments
+  that fall outside every CPC range (32, 49, 54) cannot be resolved either way --
+  widening the ranges to cover them would encode a guess as a concordance.
+
+## Evidence (measured 2026-08-15)
+
+- `cloud-itonami/unspsc` README, first paragraph -- the boundary from the far side.
+- `git ls-files` -- 30 files; `segments.csv` is the only taxonomy data.
+- `segments.csv` -- 50 rows, no duplicate codes, no commas inside any name.
+- unspsc.org resolves and serves (HTTP 200). It has no entry in the workspace's
+  `manifest/origin-domains.edn`, so the origin-plane placement of this name is
+  UNVERIFIED in the registry sense even though the domain is real."}]
