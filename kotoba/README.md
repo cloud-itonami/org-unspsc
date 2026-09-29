@@ -42,7 +42,7 @@ kotoba/
 
 ## CPC concordance (optional field)
 
-`cpcSectionFor(code)` implements the segment-range → CPC-section mapping documented in the project root CLAUDE.md:
+`cpcSectionFor(code)` implements the segment-range → CPC-section mapping documented in the project root AGENTS.md:
 
 | UNSPSC segments | Primary CPC section | Why |
 |---|---|---|

@@ -3,7 +3,7 @@
  *
  * Locks down: code format, slug format, CPC segment-range mapping per
  * the documented boundaries in
- * `60-apps/etzhayyim-project-open-unispsc/CLAUDE.md`.
+ * `60-apps/etzhayyim-project-open-unispsc/AGENTS.md`.
  */
 
 import { describe, expect, it } from "vitest";
@@ -55,7 +55,7 @@ describe("isValidSlug", () => {
 });
 
 describe("cpcSectionFor", () => {
-  // Range boundary spot-checks per CLAUDE.md mapping.
+  // Range boundary spot-checks per AGENTS.md mapping.
   it.each([
     ["10", "0-1"],
     ["15", "0-1"],

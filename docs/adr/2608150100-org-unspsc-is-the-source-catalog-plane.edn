@@ -26,7 +26,7 @@ The workspace naming rule (ADR-2608040100) puts `org-unspsc` on the **origin**
 plane: the name is the registrable domain of the authority, `unspsc.org`,
 label-reversed. The origin plane means the subject is someone else's
 specification. That is a claim about what the repository holds, and it was not
-being honoured -- `CLAUDE.md` describes a full four-level product model with
+being honoured -- `AGENTS.md` describes a full four-level product model with
 per-commodity DIDs, MCP tools and business logic, which is fleet work.
 
 ## Decision
@@ -49,15 +49,15 @@ segment level -- so grain alone does not separate them. The separation is
 subject: this repository carries what a segment *is*, that one carries what
 running a segment business *requires*.
 
-`CLAUDE.md` is retained as the aimed-at model rather than a description of
+`AGENTS.md` is retained as the aimed-at model rather than a description of
 contents, and README.md now says so. `segments.csv` is the whole corpus; the
-families, classes and ~70,000 commodities that CLAUDE.md describes are not here.
+families, classes and ~70,000 commodities that AGENTS.md describes are not here.
 
 ## Consequences
 
 - A reader arriving at any of the four repositories can now find the boundary
   stated from both ends.
-- Identity drift is kept, not renamed. `README.edn`, `CLAUDE.md` and the lexicon
+- Identity drift is kept, not renamed. `README.edn`, `AGENTS.md` and the lexicon
   NSIDs still name `etzhayyim` identities in three spellings, and two of them
   (`unspsc` / `unispsc`) are not interchangeable. This follows the policy
   `cloud-itonami/unspsc` already states -- historical `com.etzhayyim.*`

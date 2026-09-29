@@ -47,11 +47,11 @@ kotoba/src/{types,seed}.test.ts   vitest — 56 passing cases + 12 that cannot l
 appview/worker/               Cloudflare Worker that proxies com.etzhayyim.apps.unispsc.* XRPC
 training/                     13 JSONL examples + a LoRA config for a component generator
 260326-unspsc-*.md            two design notes from 2026-03-26 (DID scheme, okaimono EC)
-CLAUDE.md                     the full four-level model this repo is *aimed* at
+AGENTS.md                     the full four-level model this repo is *aimed* at
 migration.edn                 provenance of the extraction from etzhayyim/root
 ```
 
-**Segments only.** `CLAUDE.md` describes families, classes and ~70,000
+**Segments only.** `AGENTS.md` describes families, classes and ~70,000
 commodities, and `training/` was built for generating per-commodity components.
 None of that data is in this repository. `segments.csv` is the whole corpus.
 
@@ -99,9 +99,9 @@ The repository lives at `cloud-itonami/org-unspsc`. Its contents still name the
 pre-move identity, in three different spellings:
 
 - `README.edn` — `com-etzhayyim-app-open-unspsc`
-- `CLAUDE.md` — `etzhayyim-project-open-unispsc`, and DIDs under
+- `AGENTS.md` — `etzhayyim-project-open-unispsc`, and DIDs under
   `did:web:unispsc.etzhayyim.com`
-- lexicon NSIDs — `com.etzhayyim.apps.unispsc.*` (CLAUDE.md) versus
+- lexicon NSIDs — `com.etzhayyim.apps.unispsc.*` (AGENTS.md) versus
   `com.etzhayyim.apps.openUnispsc.*` (the code)
 
 `cloud-itonami/unspsc` states the policy for this class of drift: *"Historical
